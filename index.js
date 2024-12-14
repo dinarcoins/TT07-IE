@@ -560,14 +560,16 @@ bangQuanTri = new (function () {
                 $("<div>", {
                   id: "caNhan",
                   class:
-                    "bgcf bn dnb wsn els ma0 koNhãn lấyĐc df aic plr5 ttu c0 fwb ptb10 bgcg3h cfh",
-                }).sổ(
-                  [
-                    { chữ: "Bài viết theo chuyên mục", giáTrị: "123" },
-                    { chữ: "Bài viết cá nhân", giáTrị: "169931" },
-                  ],
+                    "bgcf bn dnb wsn els ma0 koNhãn fww lấyĐc df aic plr5 ttu c0 fwb ptb10",
+                }).iRadio(
+                  // [
+                  //   { chữ: "Bài viết theo chuyên mục", giáTrị: "123" },
+                  //   { chữ: "Bài viết cá nhân", giáTrị: "169931" },
+                  // ],
                   {
-                    nhãn: "Vui lòng chọn",
+                    chọn: ["Bài viết theo chuyên mục", "Bài viết cá nhân"],
+                    giáTrị: ["123", "169931"],
+                    // nhãn: "Vui lòng chọn",
                     trống: true,
                     // gõ: true,
                     ngay: true,
