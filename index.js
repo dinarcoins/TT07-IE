@@ -34,33 +34,10 @@ bangQuanTri = new (function () {
 
     W.closest(".động").css("height", "calc(100% - 50px)");
     W.find("#chứaBảng .chứa").first().sửaLớp("dn");
-    W.closest(".động").before(
-      $("<div>").append(
-        $("<div>", {
-          class: "h40 w1 bgcf",
-        }).append(
-          $.icon("list: fs2 ma5 c0 bấmĐc").click(function () {
-            $("#cộtTrái").sửaLớp("-w5 w16 -dn");
-            $(".arrow_back").sửaLớp("-dn");
-          })
-        )
-      )
-    );
 
     var arrow = false,
       báoCáo = false,
       ụChính;
-
-    var table = $("<table>", { class: "optimized" }).append(
-      // Dùng class "optimized" để định dạng
-      // Thẻ tr.top trên cùng của bảng
-      $("<tr>", { class: "top" }).append(
-        // Thẻ th[colspan=99] chứa thông tin header cho bảng
-        $("<th>", { class: "", colspan: 99 }).append(
-          $("<div>", { class: "" }).append("...")
-        )
-      )
-    );
 
     const menuTrai = function (menuCha, O) {
       var chính = config("chuyênLực." + menuCha);
@@ -70,17 +47,16 @@ bangQuanTri = new (function () {
           $(this).append(
             (chính || []).map(function (itemId) {
               var phụ = config("chuyênLực." + itemId);
-              cl(111, itemId);
               return $("<div>", { class: "" }).append(
                 $("<div>", {
                   class:
-                    (O.cấp ? "bgcf7 c0 bra20" : "bgcf7 brr20") +
-                    " plr10 mt25 ptb7 w85 cpi df jcsb aic cfh bgcg3h tab",
+                    (O.cấp ? "bra20 bgcf c0 " : "brr20 bgcf c0 ") +
+                    " plr10 mt25 ptb7 w85 cpi df jcsb aic cfh bgcg3h tab menuCha ",
                 })
                   .append(
                     $.icon("category::fs1"),
                     $("<c>", {
-                      class: "dib fwb ttu ụGiáTrị f1 ml5 fs12p",
+                      class: "dib fwb ttu ụGiáTrị f1 ml5 fs12p menuTitle",
                       text: dữLiệu.tên(itemId, "ụ"),
                     }),
                     !empty(phụ) &&
@@ -94,8 +70,12 @@ bangQuanTri = new (function () {
                   .click(function (e) {
                     ụChính = itemId;
                     báoCáo = false;
+
+                    // $(this).closest(".menuCha").sửaLớp("bgcg3 -bgcf");
+                    // result.find(".menuCha").sửaLớp("-bgcg3 bgcf");
+                    
                     $(".bgcg3").sửaLớp("-bgcg3 -cf");
-                    $(this).sửaLớp("bgcg3 cf ");
+                    $(this).sửaLớp("bgcg3 cf");
                     $(".bộLọc").find(".nútTìmKiếm").trigger("click");
                   }),
                 !empty(chính) &&
@@ -134,7 +114,6 @@ bangQuanTri = new (function () {
                       ê: "Làm mới",
                       i: "cached::vam,cod",
                       f: function () {
-                        // r.trigger("đổi"); // Hiển thị lại dòng
                         r.trigger("mới"); // Tải và hiển thị lại dòng, r là thẻ <tr>
                       },
                     },
@@ -149,7 +128,6 @@ bangQuanTri = new (function () {
                       ê: "Sửa bài viết",
                       i: "edit::vam,cod,links",
                       f: function () {
-                        // vàoURL(dữLiệu.url(i, "ế")); // Vào xem bài viết qua url
                         khôngGian.bàiViết.sửa(i);
                       },
                     },
@@ -157,8 +135,6 @@ bangQuanTri = new (function () {
                       ê: "Lịch sử chỉnh sửa",
                       i: "history::vam,links,cr4",
                       f: function () {
-                        // vàoURL(dữLiệu.url(i, "ế")); // Vào xem bài viết qua url
-                        // khôngGian.bàiViết.xoá(i);
                         xửLý(
                           "remote.function.logLịchSử",
                           { d: { bảng: "bàiViết", trong: [i] } },
@@ -245,7 +221,7 @@ bangQuanTri = new (function () {
         ẩ: true,
         ă: "c",
         ã: function () {
-          $(this).sửaLớp("fwb,cl1,bấmĐc").tip("Copy");
+          $(this).sửaLớp("fwb,cl1");
         },
       },
       ê: {
@@ -261,7 +237,6 @@ bangQuanTri = new (function () {
           // $(this).text("Training")
         },
         ộ: "200",
-
         // bắtBuộc: false,
         // chúThích: "<br>",
         // chỉHiệnVớiAdmin: false,
@@ -275,6 +250,7 @@ bangQuanTri = new (function () {
         // ạ: "select",
         // ẩ: false,
         // ắ: true
+        // ề: thêm được nhiều file
       },
       ô: {
         ê: "Mô tả",
@@ -286,7 +262,6 @@ bangQuanTri = new (function () {
           $(this).text(dữLiệu.môTả(i, "ế"));
           $(this).append();
           $(this).cắtDòng(2);
-          // $(this).text("Training")
         },
         ộ: "300",
       },
@@ -302,7 +277,6 @@ bangQuanTri = new (function () {
           x.click(function () {
             vàoURL(dữLiệu.url(item, "ụ")); // Vào xem bài viết qua url
           });
-          // $(this).text(dữLiệu.tên(item, "ụ"));
           v = dữLiệu.tên(item, "ụ");
         },
       },
@@ -356,9 +330,7 @@ bangQuanTri = new (function () {
         ă: "c",
         ạ: "file",
         koChờ: true,
-        // hiệnTên: true,
-        ề: true,
-        // ịéẺN: true,
+        ề: true, // thêm được nhiều file
         sửaĐc: false,
         ộ: "80",
 
@@ -426,7 +398,7 @@ bangQuanTri = new (function () {
             $("<div>", {
               class: "bấmĐc dib ml15 ptb5 plr10 bg1o1 bra10 arrowBtn wfc",
             })
-              .append($.icon(`disabled_by_default::fs16 fwb cr2`))
+              .append($.icon(`menu_open::fs16 fwb cr2`))
               .click(function () {
                 if (!arrow) {
                   $(this)
@@ -436,7 +408,7 @@ bangQuanTri = new (function () {
                 } else {
                   $(this)
                     .empty()
-                    .append($.icon("disabled_by_default::fs16 fwb bấmĐc cr2"));
+                    .append($.icon("menu_open::fs16 fwb bấmĐc cr2"));
                   $("#cộtTrái").sửaLớp("-w0 w16 -dn");
                 }
                 return (arrow = !arrow);
@@ -515,7 +487,7 @@ bangQuanTri = new (function () {
                       }
                     : $.gộp(
                         { h: md5(Je(D)) },
-                        D.từKhóa && { từKhóa: [D.từKhóa, ["ê", "ộ"]] },
+                        D.từKhóa && { từKhóa: [D.từKhóa, ["ê", "ộ", "ụ"]] },
                         {
                           thuộcTính: $.gộp(
                             $("#caNhan").iVal() == "169931"
@@ -554,7 +526,37 @@ bangQuanTri = new (function () {
             .empty()
             .append(
               // Menu sổ
-              $("<div>", { class: "khối mt25" }).append(
+              $("<div>", { class: "khối mt10" }).append(
+                $("<div>", { class: "cpi arrow_back ml10 mb10" })
+                  .empty()
+                  .append($.icon("arrow_back::fs16 fwb cgd bấmĐc cf"))
+                  .click(function () {
+                    // $(this).sửaLớp("dn");
+                    arrow = !arrow;
+
+                    $("#cộtTrái")
+                      .sửaLớp("w16", arrow ? "-" : "")
+                      .find(".tabĐiềuHướng")
+                      .sửaLớp("dncc", arrow ? "" : "-");
+                    if (arrow) {
+                      $(this)
+                        .empty()
+                        .append($.icon("arrow_forward::fs16 fwb cgd bấmĐc cf"));
+                      $("#cộtTrái").sửaLớp("-w16 w5");
+                      $("#cộtTrái").find(".menuContent").sửaLớp("dn");
+                      $("#cộtTrái").find(".menuIcons").sửaLớp("-dn");
+                      $("#cộtTrái").find(".menuTitle").sửaLớp("dn");
+                    } else {
+                      $(this)
+                        .empty()
+                        .append($.icon("arrow_back::fs16 fwb cgd bấmĐc cf"));
+                      $("#cộtTrái").sửaLớp("-w5 w16 -dn");
+                      $("#cộtTrái").find(".menuContent").sửaLớp("-dn");
+                      $("#cộtTrái").find(".menuIcons").sửaLớp("dn");
+                      $("#cộtTrái").find(".menuTitle").sửaLớp("-dn");
+                    }
+                  })
+                  .tip("Thu gọn menu"),
                 $("<div>", {
                   id: "caNhan",
                   class:
@@ -567,7 +569,7 @@ bangQuanTri = new (function () {
                   {
                     nhãn: "Vui lòng chọn",
                     trống: true,
-                    gõ: true,
+                    // gõ: true,
                     ngay: true,
                     sẵn: "123",
                     // vôHiệu:true, // Không cho phéo chọn
@@ -611,15 +613,19 @@ bangQuanTri = new (function () {
                     $("<div>", {
                       id: "ụ",
                       class:
-                        " h1 bgcf bn dnb wsn els ma0 koNhãn lấyĐc df aic plr5 ttu c0 fwb ụChính ptb10 bgcg3h cfh brr20 fs13p",
+                        " h1 bgcf bn dnb ma0 koNhãn lấyĐc df aic plr5 ttu c0 fwb ụChính ptb10 bgcg3h cfh brr20 fs13p",
                     }).sổ(
                       (config("chuyênLực.16853") || []).map(function (á) {
-                        return { chữ: dữLiệu.tên(á, "ụ"), giáTrị: á }; // mảng các object kiểu {chữ:"text",giá trị:xyz}
+                        return {
+                          chữ: dữLiệu.tên(á, "ụ"),
+                          giáTrị: á,
+                          bo: "pr25",
+                        }; // mảng các object kiểu {chữ:"text",giá trị:xyz}
                       }),
                       {
                         nhãn: "Vui lòng chọn",
                         trống: true,
-                        gõ: true,
+                        // gõ: false,
                         ngay: true,
                         sẵn: (config("chuyênLực.16853") || [])[0],
                         // vôHiệu:true, // Không cho phéo chọn
@@ -644,19 +650,20 @@ bangQuanTri = new (function () {
                 )
             );
 
-          W.find("#cộtTrái").hover(
-            function () {
-              $(this).find(".tabĐiềuHướng").sửaLớp("-dncc");
-              $(".ụChính").sửaLớp("-dn");
-            },
-            function () {
-              if (arrow) {
-                $(this).find(".tabĐiềuHướng").sửaLớp("dncc");
-                $(".ụChính").sửaLớp("dn");
-              }
-            }
-          ),
+          // W.find("#cộtTrái").hover(
+          //   function () {
+          //     $(this).find(".tabĐiềuHướng").sửaLớp("-dncc");
+          //     $(".ụChính").sửaLớp("-dn");
+          //   },
+          //   function () {
+          //     if (arrow) {
+          //       $(this).find(".tabĐiềuHướng").sửaLớp("dncc");
+          //       $(".ụChính").sửaLớp("dn");
+          //     }
+          //   }
+          // ),
             T.on("tạoTrang thêmDòngsXong hiệnLưới", function (e) {
+              cl(111, e);
               switch (e.type) {
                 case "tạoTrang":
                 case "thêmDòngsXong":
@@ -745,6 +752,7 @@ bangQuanTri = new (function () {
                     $("<div>", {
                       id: "p",
                       class: "lấyĐc bn plr10 bgcf h1 df aic koNhãn",
+                      l: "Chọn trạng thái",
                     }).sổ(
                       [
                         { chữ: "Bài viết công khai", giáTrị: "1" },
@@ -753,9 +761,9 @@ bangQuanTri = new (function () {
                       {
                         nhãn: "Vui lòng chọn",
                         trống: true,
-                        gõ: true,
+                        // gõ: false,
                         ngay: true,
-                        sẵn: "1",
+                        sẵn: "",
                         // vôHiệu:true, // Không cho phéo chọn
                         // icon:false,
                         đổi: function (v) {},
@@ -769,7 +777,7 @@ bangQuanTri = new (function () {
                     $("<div>", {
                       id: "ấ",
                       class:
-                        "pa5-xs pa7 bgcf bsi bra30i c9 col-xs-12 flex aic h1 lấyĐc",
+                        "pa5-xs pa7 bgcf bsi bra30i c9 col-xs-12 flex aic h1 lấyĐc chọnThờiGian",
                       l: "Chọn khoảng thời gian",
                     })
                       .on("giáTrị", function () {
@@ -860,7 +868,18 @@ bangQuanTri = new (function () {
                       .css({
                         background:
                           "linear-gradient(90deg, rgba(17,153,142,1) 0%, rgba(56,239,125,1) 100%)",
-                      })
+                      }),
+                    $("<div>", {
+                      class:
+                        "nútXoáTìmKiếm cr3 cr1h bấmĐc bra5 fwb pa5-xs plr15 ptb7 ttu tacb ttnb bn ma5 dib ma0-xs fs09",
+                      text: "Xoá hết",
+                      icon: "delete_history::vam,tty-1p,fs16",
+                      phím: 13,
+                    }).click(function () {
+                      $(".bộLọc").find("input#từKhóa").iVal("");
+                      $(".bộLọc").find("input#từKhóa").focus();
+                      $(".bộLọc").find("input#chọnNgày").iVal();
+                    })
                   )
                 )
               )
